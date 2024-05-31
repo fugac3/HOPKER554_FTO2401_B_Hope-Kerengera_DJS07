@@ -63,6 +63,9 @@ main {
 
 .meme {
   position: relative;
+  display: flex;
+  justify-content: center;
+  /*move images to center so meme text is in middle*/
 }
 
 .meme--image {

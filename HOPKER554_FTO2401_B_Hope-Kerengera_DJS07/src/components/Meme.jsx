@@ -1,20 +1,30 @@
 import React, { useState } from "react";
-import memeData from "../memeData";
 
+//defining meme component
 export default function Meme() {
+    //useState hook to manage meme state
   const [meme, setMeme] = useState({
     topText: "",
     bottomText: "",
     randomImage: "http://i.imgflip.com/1bij.jpg",
   });
 
-  const [allMemeImages, setAllMemeImages] = useState(memeData);
+  //useState hook to store all meme images
+  const [allMemeImages, setAllMemeImages] = useState([]);
 
+  //fetching meme images
+  React.useEffect(() => {
+    fetch("https://api.imgflip.com/get_memes")
+      .then((response) => response.json())
+      .then((data) => {
+        setAllMemeImages(data.data.memes);
+      });
+  }, []);
 
+  //function to generate random meme image
   function getMemeImage() {
-    const memeArray = allMemeImages.data.memes;
-    const randomNumber = Math.floor(Math.random() * memeArray.length);
-    const url = memeArray[randomNumber].url;
+    const randomNumber = Math.floor(Math.random() * allMemeImages.length);
+    const url = allMemeImages[randomNumber].url;
     setMeme((prevMeme) => {
       return {
         ...prevMeme,
@@ -23,6 +33,7 @@ export default function Meme() {
     });
   }
 
+  //function to handle input changes
   function handleChange(event) {
     const { name, value } = event.target;
     setMeme((prevMeme) => {
@@ -33,6 +44,7 @@ export default function Meme() {
     });
   }
 
+  //jsx for meme component
   return (
     <main>
       <div className="form">
