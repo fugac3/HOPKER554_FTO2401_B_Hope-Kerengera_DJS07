@@ -4,7 +4,7 @@ export default function Header() {
     return (
         <header className="header">
             <img
-                src="./images/meme-face-logo.png"
+                src="./images/basketball-meme.png"
                 className="header--image"
                 alt="Meme Logo"
             />
